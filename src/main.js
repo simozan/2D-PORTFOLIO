@@ -1,3 +1,4 @@
+import { scaleFactor } from "./constants";
 import { k } from "./kaboomCtx";
 k.loadAseprite("spritesheet", "./spritesheet.png", {
     sliceX: 39,
@@ -20,7 +21,18 @@ k.setBackground(k.Color.fromHex("#311047"));
 
 k.scene("main", async()=>{
 const mapData = await (await fetch("./map.json")).json()
-// ...
-});
+const layers = mapData.layers});
+
+
+//create a game object (in this case the map) objects that contains thifferent components ej. position
+const map = k.make([
+    //component to display
+    k.sprite("map"),
+    //position component 
+    k.pos(0),
+    // scale component
+    k.scale(scaleFactor)
+
+])
 
 k.go("main");
