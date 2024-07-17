@@ -20,7 +20,6 @@ k.setBackground(k.Color.fromHex("#311047"));
 k.scene("main", async () => {
   const mapData = await (await fetch("./map.json")).json();
   const layers = mapData.layers;
-});
 
 //create a game object (in this case the map) objects that contains thifferent components ej. position
 const map = k.make([
@@ -43,7 +42,19 @@ const player = k.make([
   k.scale(scaleFactor),
   {
     speed: 250,
-    direction: down,
+    direction: "down",
+    isIndialogue: false,
   },
+  "player",
 ]);
+for (const layer of layers ) {
+    if (layer.name === "boundaries") {
+        for (const boundary of layer.objects) {
+            map.add([
+                
+            ])
+        }
+    }
+}
+});
 k.go("main");
