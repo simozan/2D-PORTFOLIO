@@ -39,6 +39,11 @@ const player = k.make([
   }),
   k.body(),
   k.anchor("center"),
-  k.pos()
+  k.pos(),
+  k.scale(scaleFactor),
+  {
+    speed: 250,
+    direction: down,
+  },
 ]);
 k.go("main");
