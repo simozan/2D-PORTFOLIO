@@ -21,40 +21,52 @@ k.scene("main", async () => {
   const mapData = await (await fetch("./map.json")).json();
   const layers = mapData.layers;
 
-//create a game object (in this case the map) objects that contains thifferent components ej. position
-const map = k.make([
-  //component to display
-  k.sprite("map"),
-  //position component
-  k.pos(0),
-  // scale component
-  k.scale(scaleFactor),
-]);
+  //create a game object (in this case the map) objects that contains thifferent components ej. position
+  const map = k.make([
+    //component to display
+    k.sprite("map"),
+    //position component
+    k.pos(0),
+    // scale component
+    k.scale(scaleFactor),
+  ]);
 
-const player = k.make([
-  k.sprite("spitesheet", { anim: "idle-down" }),
-  k.area({
-    shape: new k.Rect(k.vec2(0, 3), 10, 10),
-  }),
-  k.body(),
-  k.anchor("center"),
-  k.pos(),
-  k.scale(scaleFactor),
-  {
-    speed: 250,
-    direction: "down",
-    isIndialogue: false,
-  },
-  "player",
-]);
-for (const layer of layers ) {
+  const player = k.make([
+    k.sprite("spitesheet", { anim: "idle-down" }),
+    k.area({
+      shape: new k.Rect(k.vec2(0, 3), 10, 10),
+    }),
+    k.body(),
+    k.anchor("center"),
+    k.pos(),
+    k.scale(scaleFactor),
+    {
+      speed: 250,
+      direction: "down",
+      isInDialogue: false,
+    },
+    "player",
+  ]);
+  for (const layer of layers) {
     if (layer.name === "boundaries") {
-        for (const boundary of layer.objects) {
-            map.add([
-                
-            ])
+      for (const boundary of layer.objects) {
+        map.add([
+          k.area({
+            shape: new k.Rect(k.vec2(0), boundary.width, boundary.height),
+          }),
+          k.body({ isStatic: true }),
+          k.pos(boundary.x, boundary.y),
+          boundary.name,
+        ]);
+        // collision event. The function run when the collision occurs
+        if (boundary.name) {
+          player.onCollide(boundary.name, () => {
+            player.isInDialogue = true;
+            //TODO
+          });
         }
+      }
     }
-}
+  }
 });
 k.go("main");
