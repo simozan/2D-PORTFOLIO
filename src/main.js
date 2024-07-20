@@ -82,14 +82,14 @@ k.scene("main", async () => {
       }
     }
   }
- 
-  // call the function to resize 
-  
+
+  // call the function to resize
+
   setCamScale(k);
 
-  k.onResize(()=> {
+  k.onResize(() => {
     setCamScale(k);
-  })
+  });
 
   //make the camera follow the player
   k.onUpdate(() => {
@@ -97,11 +97,45 @@ k.scene("main", async () => {
   });
 
   //move the player
-  k.onMouseDown((mouseBtn)=>{
+  k.onMouseDown((mouseBtn) => {
     if (mouseBtn !== "left" || player.isInDialogue) return;
 
     const worldMousePos = k.toWorld(k.mousePos());
     player.moveTo(worldMousePos, player.speed);
-  })
+
+    const lowerBound = 50;
+    const upperBound = 125;
+
+    if (
+      moouseAngle > lowerBound &&
+      moouseAngle < upperBound &&
+      player.curAnim() !== "walk-up"
+    ) {
+      player.play("walk-up");
+      player.direction = "up";
+      return;
+    }
+
+    if (
+      moouseAngle > -lowerBound &&
+      moouseAngle < -upperBound &&
+      player.curAnim() !== "walk-down"
+    ) {
+      player.play("walk-down");
+      player.direction = "down";
+      return;
+    }
+
+    if (
+      moouseAngle > -lowerBound &&
+      moouseAngle < -upperBound &&
+      player.curAnim() !== "walk-down"
+    ) {
+      player.play("walk-down");
+      player.direction = "down";
+      return;
+    }
+
+  });
 });
 k.go("main");
