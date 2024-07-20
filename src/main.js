@@ -1,6 +1,6 @@
 import { scaleFactor } from "./constants";
 import { k } from "./kaboomCtx";
-import { displayDialogue } from "./utils";
+import { displayDialogue, setCamScale } from "./utils";
 k.loadAseprite("spritesheet", "./spritesheet.png", {
   sliceX: 39,
   sliceY: 31,
@@ -82,7 +82,15 @@ k.scene("main", async () => {
       }
     }
   }
+ 
+  // call the function to resize 
   
+  setCamScale(k);
+
+  k.onResize(()=> {
+    setCamScale(k);
+  })
+
   //make the camera follow the player
   k.onUpdate(() => {
     k.camPos(player.pos.x, player.pos.y + 100);
