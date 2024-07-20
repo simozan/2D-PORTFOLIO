@@ -23,7 +23,7 @@ k.scene("main", async () => {
   const layers = mapData.layers;
 
   //create a game object (in this case the map) objects that contains thifferent components ej. position
-  const map = k.make([
+  const map = k.add([
     //component to display
     k.sprite("map"),
     //position component
@@ -63,7 +63,7 @@ k.scene("main", async () => {
         if (boundary.name) {
           player.onCollide(boundary.name, () => {
             player.isInDialogue = true;
-            displayDialogue("todo", ()=>(player.isInDialogue = false))
+            displayDialogue("todo", () => (player.isInDialogue = false));
           });
         }
       }
@@ -82,5 +82,18 @@ k.scene("main", async () => {
       }
     }
   }
+  
+  //make the camera follow the player
+  k.onUpdate(() => {
+    k.camPos(player.pos.x, player.pos.y + 100);
+  });
+
+  //move the player
+  k.onMouseDown((mouseBtn)=>{
+    if (mouseBtn !== "left" || player.isInDialogue) return;
+
+    const worldMousePos = k.toWorld(k.mousePos());
+    player.moveTo(worldMousePos, player.speed);
+  })
 });
 k.go("main");
