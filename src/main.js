@@ -1,9 +1,14 @@
 import { scaleFactor } from "./constants";
 import { k } from "./kaboomCtx";
 import { displayDialogue, setCamScale } from "./utils";
+
+// function that allows us to loas an image as a sprite
+
 k.loadAseprite("spritesheet", "./spritesheet.png", {
   sliceX: 39,
   sliceY: 31,
+
+  //specific name to specific animations
   anims: {
     "idle-down": 936,
     "walk-down": { from: 936, to: 939, loop: true, speed: 8 },
@@ -14,9 +19,15 @@ k.loadAseprite("spritesheet", "./spritesheet.png", {
   },
 });
 
+// import the map
+
 k.loadSprite("map", "./map.png");
 
+// background
+
 k.setBackground(k.Color.fromHex("#311047"));
+
+// create a scene
 
 k.scene("main", async () => {
   const mapData = await (await fetch("./map.json")).json();
@@ -63,7 +74,8 @@ k.scene("main", async () => {
         if (boundary.name) {
           player.onCollide(boundary.name, () => {
             player.isInDialogue = true;
-            displayDialogue("todo", () => (player.isInDialogue = false));
+            displayDialogue("todo", 
+              () => (player.isInDialogue = false));
           });
         }
       }
@@ -136,6 +148,10 @@ k.scene("main", async () => {
       return;
     }
 
+
+
   });
 });
+
+// go to the main scene
 k.go("main");
