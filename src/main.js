@@ -1,14 +1,10 @@
-import { scaleFactor } from "./constants";
+import { dialogueData, scaleFactor } from "./constants";
 import { k } from "./kaboomCtx";
 import { displayDialogue, setCamScale } from "./utils";
 
-// function that allows us to loas an image as a sprite
-
-k.loadAseprite("spritesheet", "./spritesheet.png", {
+k.loadSprite("spritesheet", "./spritesheet.png", {
   sliceX: 39,
   sliceY: 31,
-
-  //specific name to specific animations
   anims: {
     "idle-down": 936,
     "walk-down": { from: 936, to: 939, loop: true, speed: 8 },
@@ -19,32 +15,18 @@ k.loadAseprite("spritesheet", "./spritesheet.png", {
   },
 });
 
-// import the map
-
 k.loadSprite("map", "./map.png");
 
-// background
-
 k.setBackground(k.Color.fromHex("#311047"));
-
-// create a scene
 
 k.scene("main", async () => {
   const mapData = await (await fetch("./map.json")).json();
   const layers = mapData.layers;
 
-  //create a game object (in this case the map) objects that contains thifferent components ej. position
-  const map = k.add([
-    //component to display
-    k.sprite("map"),
-    //position component
-    k.pos(0),
-    // scale component
-    k.scale(scaleFactor),
-  ]);
+  const map = k.add([k.sprite("map"), k.pos(0), k.scale(scaleFactor)]);
 
   const player = k.make([
-    k.sprite("spitesheet", { anim: "idle-down" }),
+    k.sprite("spritesheet", { anim: "idle-down" }),
     k.area({
       shape: new k.Rect(k.vec2(0, 3), 10, 10),
     }),
@@ -59,6 +41,7 @@ k.scene("main", async () => {
     },
     "player",
   ]);
+
   for (const layer of layers) {
     if (layer.name === "boundaries") {
       for (const boundary of layer.objects) {
@@ -70,18 +53,22 @@ k.scene("main", async () => {
           k.pos(boundary.x, boundary.y),
           boundary.name,
         ]);
-        // collision event. The function run when the collision occurs
+
         if (boundary.name) {
           player.onCollide(boundary.name, () => {
             player.isInDialogue = true;
-            displayDialogue("todo", 
-              () => (player.isInDialogue = false));
+            displayDialogue(
+              dialogueData[boundary.name],
+              () => (player.isInDialogue = false)
+            );
           });
         }
       }
+
       continue;
     }
-    if (layer.name === "spawpoints") {
+
+    if (layer.name === "spawnpoints") {
       for (const entity of layer.objects) {
         if (entity.name === "player") {
           player.pos = k.vec2(
@@ -95,32 +82,30 @@ k.scene("main", async () => {
     }
   }
 
-  // call the function to resize
-
   setCamScale(k);
 
   k.onResize(() => {
     setCamScale(k);
   });
 
-  //make the camera follow the player
   k.onUpdate(() => {
-    k.camPos(player.pos.x, player.pos.y + 100);
+    k.camPos(player.worldPos().x, player.worldPos().y - 100);
   });
 
-  //move the player
   k.onMouseDown((mouseBtn) => {
     if (mouseBtn !== "left" || player.isInDialogue) return;
 
     const worldMousePos = k.toWorld(k.mousePos());
     player.moveTo(worldMousePos, player.speed);
 
+    const mouseAngle = player.pos.angle(worldMousePos);
+
     const lowerBound = 50;
     const upperBound = 125;
 
     if (
-      moouseAngle > lowerBound &&
-      moouseAngle < upperBound &&
+      mouseAngle > lowerBound &&
+      mouseAngle < upperBound &&
       player.curAnim() !== "walk-up"
     ) {
       player.play("walk-up");
@@ -129,8 +114,8 @@ k.scene("main", async () => {
     }
 
     if (
-      moouseAngle > -lowerBound &&
-      moouseAngle < -upperBound &&
+      mouseAngle < -lowerBound &&
+      mouseAngle > -upperBound &&
       player.curAnim() !== "walk-down"
     ) {
       player.play("walk-down");
@@ -138,20 +123,86 @@ k.scene("main", async () => {
       return;
     }
 
-    if (
-      moouseAngle > -lowerBound &&
-      moouseAngle < -upperBound &&
-      player.curAnim() !== "walk-down"
-    ) {
-      player.play("walk-down");
-      player.direction = "down";
+    if (Math.abs(mouseAngle) > upperBound) {
+      player.flipX = false;
+      if (player.curAnim() !== "walk-side") player.play("walk-side");
+      player.direction = "right";
       return;
     }
 
+    if (Math.abs(mouseAngle) < lowerBound) {
+      player.flipX = true;
+      if (player.curAnim() !== "walk-side") player.play("walk-side");
+      player.direction = "left";
+      return;
+    }
+  });
 
+  function stopAnims() {
+    if (player.direction === "down") {
+      player.play("idle-down");
+      return;
+    }
+    if (player.direction === "up") {
+      player.play("idle-up");
+      return;
+    }
 
+    player.play("idle-side");
+  }
+
+  k.onMouseRelease(stopAnims);
+
+  k.onKeyRelease(() => {
+    stopAnims();
+  });
+  k.onKeyDown((key) => {
+    const keyMap = [
+      k.isKeyDown("right"),
+      k.isKeyDown("left"),
+      k.isKeyDown("up"),
+      k.isKeyDown("down"),
+    ];
+
+    let nbOfKeyPressed = 0;
+    for (const key of keyMap) {
+      if (key) {
+        nbOfKeyPressed++;
+      }
+    }
+
+    if (nbOfKeyPressed > 1) return;
+
+    if (player.isInDialogue) return;
+    if (keyMap[0]) {
+      player.flipX = false;
+      if (player.curAnim() !== "walk-side") player.play("walk-side");
+      player.direction = "right";
+      player.move(player.speed, 0);
+      return;
+    }
+
+    if (keyMap[1]) {
+      player.flipX = true;
+      if (player.curAnim() !== "walk-side") player.play("walk-side");
+      player.direction = "left";
+      player.move(-player.speed, 0);
+      return;
+    }
+
+    if (keyMap[2]) {
+      if (player.curAnim() !== "walk-up") player.play("walk-up");
+      player.direction = "up";
+      player.move(0, -player.speed);
+      return;
+    }
+
+    if (keyMap[3]) {
+      if (player.curAnim() !== "walk-down") player.play("walk-down");
+      player.direction = "down";
+      player.move(0, player.speed);
+    }
   });
 });
 
-// go to the main scene
 k.go("main");
