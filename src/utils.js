@@ -1,7 +1,11 @@
+// contain functions
+
 export function displayDialogue(text, onDisplayEnd) {
     const dialogueUI = document.getElementById("textbox-container");
     const dialogue = document.getElementById("dialogue");
-  
+
+// when you want to see the dialogue "display:block"... by default is "display:none"
+
     dialogueUI.style.display = "block";
     let index = 0;
     let currentText = "";
@@ -25,9 +29,11 @@ export function displayDialogue(text, onDisplayEnd) {
       clearInterval(intervalRef);
       closeBtn.removeEventListener("click", onCloseBtnClick);
     }
-  
+
     closeBtn.addEventListener("click", onCloseBtnClick);
   
+    // scaling the camara
+
     addEventListener("keypress", (key) => {
       if (key.code === "Enter") {
         closeBtn.click();
@@ -43,4 +49,3 @@ export function displayDialogue(text, onDisplayEnd) {
       k.camScale(k.vec2(1.5));
     }
   }
-  
