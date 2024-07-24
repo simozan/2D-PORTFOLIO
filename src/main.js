@@ -2,9 +2,12 @@ import { dialogueData, scaleFactor } from "./constants";
 import { k } from "./kaboomCtx";
 import { displayDialogue, setCamScale } from "./utils";
 
+// function that allows us to load an image as a sprite
+
 k.loadSprite("spritesheet", "./spritesheet.png", {
   sliceX: 39,
   sliceY: 31,
+  //specific name to specific animations
   anims: {
     "idle-down": 936,
     "walk-down": { from: 936, to: 939, loop: true, speed: 8 },
@@ -15,15 +18,33 @@ k.loadSprite("spritesheet", "./spritesheet.png", {
   },
 });
 
+// import the map
+
 k.loadSprite("map", "./map.png");
 
+// background
+
 k.setBackground(k.Color.fromHex("#311047"));
+
+// create a scene
 
 k.scene("main", async () => {
   const mapData = await (await fetch("./map.json")).json();
   const layers = mapData.layers;
 
-  const map = k.add([k.sprite("map"), k.pos(0), k.scale(scaleFactor)]);
+  //create a game object (in this case the map) objects that contains thifferent components ej. position
+
+  const map = k.add([
+    //component to display
+    k.sprite("map"),
+
+    // position component
+    k.pos(0),
+
+    // scale compnent
+    k.scale(scaleFactor),
+  ]);
+  //component to display
 
   const player = k.make([
     k.sprite("spritesheet", { anim: "idle-down" }),
@@ -82,16 +103,19 @@ k.scene("main", async () => {
     }
   }
 
+  // call the function to resize
   setCamScale(k);
 
   k.onResize(() => {
     setCamScale(k);
   });
 
+  // make the camera follow the player
   k.onUpdate(() => {
     k.camPos(player.worldPos().x, player.worldPos().y - 100);
   });
 
+  //move the player
   k.onMouseDown((mouseBtn) => {
     if (mouseBtn !== "left" || player.isInDialogue) return;
 
@@ -205,4 +229,5 @@ k.scene("main", async () => {
   });
 });
 
+//go to the main scene
 k.go("main");
