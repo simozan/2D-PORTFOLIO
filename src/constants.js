@@ -23,7 +23,7 @@ Here is my <a href="https://github.com/simozan" target="_blank">Github</a>!`,
 It was created by following this tutorial: <a href="https://www.youtube.com/watch?v=gwtfWORCN0U" target="_blank">Here</a>!`,
   bed: `Sleeping 8 hours every night is essential. It enhances creativity and productivity at work and helps maintain a good mood.`,
 
-  resume: `This is my desk and on it is my resume. <a href="https://github.com/JSLegendDev/Resume/blob/main/JSLegend%20Resume-1.pdf" target="_blank">Check it out?</a>
+  resume: `This is my resume. <a href="https://issuu.com/simoza1/docs/cv_simone_zanni_fs" target="_blank">Check it out?</a>
   Contact me at simone.zanni.87@gmail.com if you have any interesting job opportunities!`,
 
   projects: `Here are some of my projects: </br>
