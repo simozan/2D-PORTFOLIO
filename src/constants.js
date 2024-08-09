@@ -20,9 +20,8 @@ Here is my <a href="https://github.com/simozan" target="_blank">Github</a>!`,
   "sofa-table": `That's my sofa! Here, I like to relax, watch tv and play videogames 🎮!!`, 
   
   
-  tv: `That's my TV. I've been watching tech youtubers a lot recently like :
-   <a href="https://www.youtube.com/@ThePrimeTimeagen" target="_blank">Theprimeagen</a>, <a href="https://www.youtube.com/@t3dotgg" target="_blank">Theo - t3.gg</a>,
-  <a href="https://www.youtube.com/@PirateSoftware" target="_blank">PirateSoftware</a> (sometimes) and <a href="https://www.youtube.com/@MelkeyDev" target="_blank">Melkey</a>!`,
+  tv: `This is a game-style portfolio was created using <span style="color: red;"> HTML</span>, <span style="color: red;"> CSS </span>, <span style="color: red;"> JavaScript </span>, and <span style="color: red;"> Kaboom.js</span>, a library for making games in JavaScript. The map was created with a program called <span style="color: red;"> Tiled </span>, a popular open-source map editor used for creating 2D game maps.
+It was created by following this tutorial: <a href="https://www.youtube.com/watch?v=gwtfWORCN0U" target="_blank">Here</a>!`,
   bed: `Sleeping 8 hours every night is essential. It enhances creativity and productivity at work and helps maintain a good mood.`,
   resume: `This is my desk and on it is my resume. <a href="https://github.com/JSLegendDev/Resume/blob/main/JSLegend%20Resume-1.pdf" target="_blank">Check it out?</a>
   Contact me at simone.zanni.87@gmail.com if you have any interesting job opportunities!`,
