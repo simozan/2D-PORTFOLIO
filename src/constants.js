@@ -27,20 +27,24 @@ It was created by following this tutorial: <a href="https://www.youtube.com/watc
   Contact me at simone.zanni.87@gmail.com if you have any interesting job opportunities!`,
 
   projects: `Here are some of my projects: </br>
-  <a href="https://magnificent-gelato-243613.netlify.app/login" target="_blank">KIDDIE TASKS HEROES : Family Task Management Web App</a>
-Kiddie Tasks Heroes is a web app that helps families manage tasks, specifically teaching children about family responsibilities.
-The App is a group project created during the bootcamp in IRONHACK using
-JavaScript, HTML & CSS, MongoDB, React.js, Express.js, Node.js
-</br> </br>
-<a href="https://app-project.adaptable.app/" target="_blank">ALL YOU CAN TUPPER : Web App for Food Sharing</a>
+</br>
+<a href="https://app-project.adaptable.app/" target="_blank">ALL YOU CAN TUPPER : Web App for Food Sharing</a></br>
 All You Can Tupper is a web app for sharing and requesting food. Users can post available food with pick-up details, and others can request and enjoy it.
 The App is a group project created during the bootcamp in IRONHACK using
 JavaScript, HTML & CSS, MongoDB, Mongooose, Express.js, Node.js
 </br> </br>
-<a href="https://simozan.github.io/EXTINCTION/" target="_blank">EXTINCTION : platform‑style video game</a>
-**Extinction** is a platform-style video game featuring a group of dinosaurs trying to escape from meteorites. The game is an individual project created during the bootcamp at Ironhack, using HTML, CSS, JavaScript, DOM manipulation, and Object-Oriented Programming (OOP).
-
-`,
+<a href="https://simozan.github.io/EXTINCTION/" target="_blank">EXTINCTION : platform‑style video game</a></br>
+Extinction is a platform-style video game featuring a group of dinosaurs trying to escape from meteorites. The game is an individual project created during the bootcamp at Ironhack, using HTML, CSS, JavaScript, DOM manipulation, and Object-Oriented Programming (OOP).
+</br> </br>
+<a href="https://magnificent-gelato-243613.netlify.app/login" target="_blank">KIDDIE TASKS HEROES : Family Task Management Web App</a></br>
+Kiddie Tasks Heroes is a web app that helps families manage tasks, specifically teaching children about family responsibilities.
+The App is a group project created during the bootcamp in IRONHACK using
+JavaScript, HTML & CSS, MongoDB, React.js, Express.js, Node.js
+</br> </br>
+<a href="https://natours-wheat-five.vercel.app/#section-tours" target="_blank">NATOURS</a></br>
+<a href="https://main--trillosz.netlify.app/#" target="_blank">TRILLO</a></br>
+<a href="https://nextersz.netlify.app/" target="_blank">NEXTER</a></br>
+Three responsive web apps from the 'Advanced CSS and Sass' course utilize Flexbox and Grid for efficient, flexible design. They leverage Sass for better CSS management and NPM for handling dependencies and task automation. Additionally, SVG graphics provide scalable, high-quality visuals.`,
 
   library: `In my library, you can find books written in many languages. In fact, my <span style="color: red;"> English </span> level is professional, as are my <span style="color: red;"> Spanish </span>, <span style="color: red;"> French </span>, and <span style="color: red;"> Catalan </span>. I also speak <span style="color: red;"> Italian </span>, which is my mother tongue.`,
 
